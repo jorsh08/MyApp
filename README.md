@@ -89,7 +89,7 @@ MyApp/
 
 Este proyecto utiliza **Formik** para la gestión eficiente de formularios en React Native, facilitando el manejo de estados, errores y envío de datos. Además, se emplea **Yup** para definir y validar los esquemas de los formularios de manera declarativa y robusta. Ambas librerías permiten crear formularios seguros, mantenibles y con una mejor experiencia de usuario.
 
-### TokenStorageAdapter
+### Adapter
 
 La arquitectura Adapter para la gestión de la llave del token utilizada en las solicitudes a la API. Actualmente, se emplea `expo-secure-store` para almacenar y recuperar el token de manera segura en el dispositivo. Esta abstracción permite que, si en algún momento se requiere cambiar el mecanismo de almacenamiento (por ejemplo, migrar a `AsyncStorage`), solo sea necesario modificar este documento, manteniendo el resto de la aplicación desacoplada y flexible ante futuros cambios.
 
@@ -103,39 +103,20 @@ La arquitectura Adapter para la gestión de la llave del token utilizada en las 
 
 - **removeToken(): Promise<void>**
 
+### Repository
 
+Arquitectura Repository responsable de construir y gestionar las solicitudes y respuestas hacia los servicios que consumen la API. Centralizan la lógica de comunicación, permitiendo mantener el código organizado y desacoplado de los detalles de la implementación del servicio.
 
-### Interfaces para solicitudes y respuestas a la API
+#### Métodos en `UserRepository`
 
-Se crearon interfaces específicas para tipar las solicitudes y respuestas que se realizan hacia la API, facilitando el desarrollo, la validación y el mantenimiento del código. Estas interfaces permiten definir claramente la estructura esperada en cada operación de autenticación.
+- **getUsers(token: string): Promise<User[]>**
+   Obtiene la lista de usuarios autenticados usando el token proporcionado.
 
-#### Interfaces implementadas
+- **signUp(req: SignUpRequest): Promise<SignUpResponse>**
+   Realiza el registro de un nuevo usuario enviando los datos requeridos a la API.
 
-- **LoginRequest**
-   Define los datos requeridos para iniciar sesión: `username` y `password`.
-
-- **LoginResponse**
-   Estructura la respuesta al iniciar sesión, incluyendo el `token`, información del usuario y posibles mensajes de error.
-
-- **SignUpRequest**
-   Especifica los datos necesarios para el registro de usuario: `username` y `password`.
-
-- **SignUpResponse**
-
-   ### Repository
-
-   Arquitectura Repository responsable de construir y gestionar las solicitudes y respuestas hacia los servicios que consumen la API. Centralizan la lógica de comunicación, permitiendo mantener el código organizado y desacoplado de los detalles de la implementación del servicio.
-
-   #### Métodos principales en `UserRepository`
-
-   - **getUsers(token: string): Promise<User[]>**
-      Obtiene la lista de usuarios autenticados usando el token proporcionado.
-
-   - **signUp(req: SignUpRequest): Promise<SignUpResponse>**
-      Realiza el registro de un nuevo usuario enviando los datos requeridos a la API.
-
-   - **signIn(username: string, password: string): Promise<LoginResponse>**
-      Inicia sesión enviando las credenciales y recibe la respuesta de autenticación.
+- **signIn(username: string, password: string): Promise<LoginResponse>**
+   Inicia sesión enviando las credenciales y recibe la respuesta de autenticación.
 
 
 ### Strategy
@@ -161,3 +142,21 @@ La arquitectura Strategy se implementa para gestionar las diferentes formas de a
 
 - **GoogleSignUp**
    Estrategia simulada para registrar usuarios con Google.
+
+
+### Interfaces para solicitudes y respuestas a la API
+
+Se crearon interfaces específicas para tipar las solicitudes y respuestas que se realizan hacia la API, facilitando el desarrollo, la validación y el mantenimiento del código. Estas interfaces permiten definir claramente la estructura esperada en cada operación de autenticación.
+
+#### Interfaces implementadas
+
+- **LoginRequest**
+   Define los datos requeridos para iniciar sesión: `username` y `password`.
+
+- **LoginResponse**
+   Estructura la respuesta al iniciar sesión, incluyendo el `token`, información del usuario y posibles mensajes de error.
+
+- **SignUpRequest**
+   Especifica los datos necesarios para el registro de usuario: `username` y `password`.
+
+- **SignUpResponse**
