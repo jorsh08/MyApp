@@ -97,7 +97,7 @@ Arquitectura Repository responsable de construir y gestionar las solicitudes y r
 - **getUsers(token)**
    Obtiene la lista de usuarios autenticados usando el token proporcionado.
 
-- **signUp(req)**
+- **signUp(request)**
    Realiza el registro de un nuevo usuario enviando los datos requeridos a la API.
 
 - **signIn(username, password)**
