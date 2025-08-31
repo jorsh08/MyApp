@@ -6,7 +6,7 @@ const getExtra = () => {
 }
 
 const { API_URL } = getExtra()
-const baseUrl = (API_URL || 'http://localhost:3000').replace(/\/$/, '') // quitar slash final
+const baseUrl = (API_URL || 'http://localhost:3000').replace(/\/$/, '') 
 
 export class ApiService {
   private static buildUrl(path: string) {
