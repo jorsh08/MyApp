@@ -16,7 +16,7 @@
 
 ```text
 MyApp/
-├── app/                      # Pantallas y navegación principal (expo-router)
+├── app/                      # Pantallas y navegación principal
 │   ├── _layout.tsx           # Layout principal de la app
 │   ├── adapters/             # Adapter Pattern
 │   │   └── TokenStorageAdapter.ts
@@ -59,21 +59,6 @@ MyApp/
 │       ├── react-logo@2x.png
 │       ├── react-logo@3x.png
 │       └── splash-icon.png
-├── components/               # Componentes reutilizables
-│   ├── Collapsible.tsx
-│   ├── ExternalLink.tsx
-│   ├── HapticTab.tsx
-│   ├── HelloWave.tsx
-│   ├── ParallaxScrollView.tsx
-│   ├── ThemedText.tsx
-│   ├── ThemedView.tsx
-│   └── ui/
-│       ├── IconSymbol.ios.tsx
-│       ├── IconSymbol.tsx
-│       ├── TabBarBackground.ios.tsx
-│       └── TabBarBackground.tsx
-├── scripts/                  # Scripts de utilidad
-│   └── reset-project.js
 ├── .env                      # Variables de entorno
 ├── app.config.js             # Configuración de Expo
 ├── app.json                  # Configuración de la app
@@ -91,17 +76,17 @@ Este proyecto utiliza **Formik** para la gestión eficiente de formularios en Re
 
 ### Adapter
 
-La arquitectura Adapter para la gestión de la llave del token utilizada en las solicitudes a la API. Actualmente, se emplea `expo-secure-store` para almacenar y recuperar el token de manera segura en el dispositivo. Esta abstracción permite que, si en algún momento se requiere cambiar el mecanismo de almacenamiento (por ejemplo, migrar a `AsyncStorage`), solo sea necesario modificar este documento, manteniendo el resto de la aplicación desacoplada y flexible ante futuros cambios.
+La arquitectura Adapter responsable de la gestión de la llave del token utilizada en las solicitudes a la API. Actualmente, se emplea `expo-secure-store` para almacenar y recuperar el token de manera segura en el dispositivo. Esta abstracción permite que, si en algún momento se requiere cambiar el mecanismo de almacenamiento (por ejemplo, migrar a `AsyncStorage`), solo sea necesario modificar este documento, manteniendo el resto de la aplicación desacoplada y flexible ante futuros cambios.
 
 #### Métodos implementados
 
-- **saveToken(token: string): Promise<void>**
+- **saveToken(token)**
    Guarda el token de acceso de forma segura en el dispositivo.
 
-- **getToken(): Promise<string | null>**
+- **getToken()**
    Recupera el token almacenado para utilizarlo en las solicitudes a la API.
 
-- **removeToken(): Promise<void>**
+- **removeToken()**
 
 ### Repository
 
@@ -109,13 +94,13 @@ Arquitectura Repository responsable de construir y gestionar las solicitudes y r
 
 #### Métodos en `UserRepository`
 
-- **getUsers(token: string): Promise<User[]>**
+- **getUsers(token)**
    Obtiene la lista de usuarios autenticados usando el token proporcionado.
 
-- **signUp(req: SignUpRequest): Promise<SignUpResponse>**
+- **signUp(req)**
    Realiza el registro de un nuevo usuario enviando los datos requeridos a la API.
 
-- **signIn(username: string, password: string): Promise<LoginResponse>**
+- **signIn(username, password)**
    Inicia sesión enviando las credenciales y recibe la respuesta de autenticación.
 
 
