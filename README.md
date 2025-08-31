@@ -1,4 +1,4 @@
-## Iniciar
+## Iniciar proyecto
 1. Instalar dependecias
 
    ```bash
