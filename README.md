@@ -1,4 +1,10 @@
 ## Iniciar proyecto
+
+## API
+https://github.com/jorsh08/MyBackend
+
+example.env -> .env
+
 1. Instalar dependecias
 
    ```bash
@@ -59,7 +65,7 @@ MyApp/
 │       ├── react-logo@2x.png
 │       ├── react-logo@3x.png
 │       └── splash-icon.png
-├── .env                      # Variables de entorno
+├── example.env               # Variables de entorno ejemplo
 ├── app.config.js             # Configuración de Expo
 ├── app.json                  # Configuración de la app
 ├── eslint.config.js          # Configuración de ESLint
