@@ -1,11 +1,11 @@
-## Get started
-1. Install dependencies
+## Iniciar
+1. Instalar dependecias
 
    ```bash
    npm install
    ```
 
-2. Start the app
+2. Correr la aplicación
 
    ```bash
    npx expo start
