@@ -13,3 +13,60 @@
 
 5. ¿Qué patrón aplicarías para aislar reglas de negocio del UI?
    Aplicaría el patrón Repository para aislar el acceso a los datos como la API y storage, y la UI solo se encarga de recibir los datos.
+
+# Login Seguro en React Native
+
+Este fragmento muestra cómo implementar un **login seguro** en React Native aplicando las siguientes medidas:
+
+- **HTTPS obligatorio**  
+- **Almacenamiento seguro del token**  
+- **Mecanismo defensivo contra errores**  
+- **Protección en segundo plano**
+- **Llada a la API por variable de etorno**  
+
+---
+
+## Código corregido
+
+```typescript
+import axios from 'axios';
+import EncryptedStorage from 'react-native-encrypted-storage'; 
+import { AppState } from 'react-native';
+import { API_URL } from '@env'; // variable de entorno
+
+const login = async (email: string, password: string, navigation: any) => {
+  try {
+    // 1. Llamada a la API usando dotenv + HTTPS
+    const response = await axios.post(`${API_URL}/login`, { email, password }, {
+      timeout: 10000, // mecanismo defensivo: evita bloqueos por red lenta
+      validateStatus: status => status >= 200 && status < 300 // acepta solo 2xx
+    });
+
+    const token = response.data?.token;
+    if (!token) {
+      throw new Error('Token inválido en la respuesta');
+    }
+
+    // 2. Almacenamiento seguro
+    await EncryptedStorage.setItem('auth_token', token);
+
+    // 3. Protección en segundo plano
+    const handleAppStateChange = async (nextAppState: string) => {
+      if (nextAppState === 'background') {
+        // Opcional: limpiar token al ir a segundo plano
+        await EncryptedStorage.removeItem('auth_token');
+      }
+    };
+
+    AppState.addEventListener('change', handleAppStateChange);
+
+    // Navegación segura
+    navigation.navigate('Home');
+  } catch (error: any) {
+    console.error('Error en login:', error?.message || error);
+    alert('No se pudo iniciar sesión. Verifica tus credenciales o tu conexión.');
+  }
+};
+
+
+
