@@ -14,7 +14,7 @@
 5. ¿Qué patrón aplicarías para aislar reglas de negocio del UI?
    Aplicaría el patrón Repository para aislar el acceso a los datos como la API y storage, y la UI solo se encarga de recibir los datos.
 
-# Login Seguro en React Native
+# Refactor de codigo inseguro
 
 Este fragmento muestra cómo implementar un **login seguro** en React Native aplicando las siguientes medidas:
 
@@ -22,7 +22,7 @@ Este fragmento muestra cómo implementar un **login seguro** en React Native apl
 - **Almacenamiento seguro del token**  
 - **Mecanismo defensivo contra errores**  
 - **Protección en segundo plano**
-- **Llada a la API por variable de etorno**  
+- **Llamada a la API por variable de etorno**  
 
 ---
 
