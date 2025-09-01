@@ -37,6 +37,11 @@ import { API_URL } from '@env'; // variable de entorno
 const login = async (email: string, password: string, navigation: any) => {
   try {
     // 1. Llamada a la API usando dotenv + HTTPS
+
+    if (!API_URL.startsWith('https://')) {
+      throw new Error('Las peticiones sólo se permiten mediante HTTPS');
+    }
+
     const response = await axios.post(`${API_URL}/login`, { email, password }, {
       timeout: 10000, // mecanismo defensivo: evita bloqueos por red lenta
       validateStatus: status => status >= 200 && status < 300 // acepta solo 2xx
